@@ -4,6 +4,9 @@ import { connectDB } from './config/db.js';
 
 import authRoute from './Routes/authRoute.js';
 import bookingRoute from './Routes/bookingRoute.js';
+import contactRoute from './Routes/contactRoute.js';
+import galleryRoute from './Routes/galleryRoute.js';
+
 
 
 const app = express();
