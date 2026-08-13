@@ -1,6 +1,5 @@
 import express from "express";
 import { submitMessage, getAllMessage, getMessageById, deleteMessage } from "../controllers/contactcontroller.js";
-
 const router = express.Router();
 
 router.post('/', submitMessage);//user can sumbit message publicly

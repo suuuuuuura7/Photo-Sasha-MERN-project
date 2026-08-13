@@ -22,12 +22,18 @@ const Userschema = new mongoose.Schema(
         },
         googleId: {
             type: String,
-            spare: true,
+            sparse: true,
             unique: true,
+            default: null,
+        },
+        avatar: {
+            type: String,
+            default: '',
         },
         role: {
             type: String,
             enum: ['user', 'admin'],
+            default: 'user',
         },
         phone: {
             type: String,

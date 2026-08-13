@@ -57,5 +57,5 @@ export const deleteMessage = async (req, res) => {
         console.error("Error to delete: ", error);
         res.status(500).json({ message: "Something went to delete message" }, error.message);
     }
-}
+};
 

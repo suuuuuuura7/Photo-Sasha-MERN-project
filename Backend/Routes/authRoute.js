@@ -1,11 +1,13 @@
 import express from 'express';
-import { register, login, logout, getMe } from "../controllers/authController.js";
-
+import { register, login, logout, getMe, googleAuth } from "../controllers/authController.js";
+import { isauth } from '../middleware/isAuth.js';
 const router = express.Router();
 
 router.post('/register', register);
 router.post('/login', login);
-router.post('/logout', logout);
-router.post('/me', getMe);
+router.post("/google", googleAuth);
+
+router.post('/logout', isauth, logout);
+router.post('/me', isauth, getMe);
 
 export default router;

@@ -6,7 +6,8 @@ import authRoute from './Routes/authRoute.js';
 import bookingRoute from './Routes/bookingRoute.js';
 import contactRoute from './Routes/contactRoute.js';
 import galleryRoute from './Routes/galleryRoute.js';
-
+import reviewRoute from './Routes/reviewRoute.js';
+import adminRoute from './Routes/adminRoute.js';
 
 
 const app = express();

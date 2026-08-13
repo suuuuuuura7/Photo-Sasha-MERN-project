@@ -1,11 +1,12 @@
 import express from 'express';
-import { getAllImages, getImagesById, uploadImage } from '../controllers/galleryController';
+import { getAllImages, getImagesById, uploadImage , updateImage, deleteImage} from '../controllers/galleryController.js';
+import { isauth } from '../middleware/isAuth.js';
 
 const router = express.Router();
 
 
-router.get('/', getAllImages);
-router.get('/:id/', getImagesById);
+router.get('/', isauth, getAllImages);
+router.get('/:id/', isauth, getImagesById);
 
 router.post('/:id', uploadImage);
 router.put(':/id', updateImage);
