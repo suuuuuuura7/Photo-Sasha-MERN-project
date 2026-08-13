@@ -1,7 +1,10 @@
 import express from 'express';
 import { getStats, getAllUsers, deleteUser, updateUserRole } from '../controllers/adminController.js';
+import { isAuth, isAdmin } from '../middleware/auth.js';
 
 const router = express.Router();
+
+router.use(isAuth, isAdmin);
 
 router.get('/stats', getStats);
 router.get('/users', getAllUsers);

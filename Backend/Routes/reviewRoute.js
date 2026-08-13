@@ -1,16 +1,16 @@
 import express from 'express';
-import { isauth } from '../middleware/isAuth.js';
+import { isAuth , isAdmin} from '../middleware/auth.js';
 import { submitReview, getApprovedPreview, approvePreview, getAllRreview, deleteReview } from '../controllers/reviewController.js';
 
 const router = express.Router();
 
-router.post('/', isauth, submitReview);
+router.post('/', isAuth, submitReview);
 router.get('/', getApprovedPreview);
 
 //admin only
-router.put('/:id/approve', approvePreview);
-router.get('/all', getAllRreview);
-router.delete('/:id', deleteReview);
+router.put('/:id/approve', isAdmin, approvePreview);
+router.get('/all', isAdmin, getAllRreview);
+router.delete('/:id', isAdmin, deleteReview);
 
 
 

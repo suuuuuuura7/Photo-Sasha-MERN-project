@@ -1,17 +1,19 @@
 import express from "express";
 import { createBooking, getUserBooking, getUserBookingById, cancelBooking, getAllBookings, updateBookingStatus } from "../controllers/bookingController.js";
-import { isauth } from "../middleware/isAuth.js";
+import { isAuth, isAdmin } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post('/', isauth, createBooking);
-router.get('/my', isauth, getUserBooking);
-router.get('/:id', isauth,  getUserBookingById);
-router.put('/:id/cancel', isauth, cancelBooking);
+router.use(isAuth);
+
+router.post('/', createBooking);
+router.get('/my', getUserBooking);
+router.get('/:id', getUserBookingById);
+router.put('/:id/cancel', cancelBooking);
 
 //admin only I will add admin middleware
-router.get('/', getAllBookings);
-router.put('/:id/status', updateBookingStatus);
+router.get('/', isAdmin, getAllBookings);
+router.put('/:id/status', isAdmin, updateBookingStatus);
 
 
 
