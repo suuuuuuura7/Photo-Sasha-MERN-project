@@ -43,25 +43,32 @@ const Reviews = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {reviews.map((review, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.2 }}
-                            viewport={{ once: true }}
-                            className="p-6 rounded  hover:border-brandRed transition-colors">
+                    {reviews.length > 0
+                        ? reviews.map((review, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: i * 0.2 }}
+                                viewport={{ once: true }}
+                                className="p-6 rounded  hover:border-brandRed transition-colors">
 
-                            <StarRating rating={review.rating} />
-                            <p className="text-gray-300 mt-4 mb-6 leading-relaxed italic">"{review.comment}"</p>
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-brandRed flex items-center justify-center text-white font-bold">
-                                    {review.user?.name ? review.user.name[0] : 'A'}
+                                <StarRating rating={review.rating} />
+                                <p className="text-gray-300 mt-4 mb-6 leading-relaxed italic">"{review.comment}"</p>
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-brandRed flex items-center justify-center text-white font-bold">
+                                        {review.user?.name ? review.user.name[0] : 'A'}
+                                    </div>
+                                    <span className="text-white font-medium">{review.user?.name || 'Anonymous'}</span>
                                 </div>
-                                <span className="text-white font-medium">{review.user?.name || 'Anonymous'}</span>
+                            </motion.div>
+                        ))
+                        : (
+                            <div className="col-span-3 text-center py-16 text-gray-500">
+                                <p>No reviews available yet. Leave a review after your photo shoot to feature here.</p>
                             </div>
-                        </motion.div>
-                    ))}
+                        )
+                    }
                 </div>
                 {isAuthenticated &&
                     <Link to="/reviews" className="inline-block px-10 py-4 mt-5 text-white  font-semibold rounded border border-gray-800 hover:border-brandRed hover:text-brandRed transition-colors duration-300 " >
