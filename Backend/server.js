@@ -59,6 +59,12 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: 'Internal server error' });
 });
 
+// Health check route
+app.get('/api/health', (req, res) => {
+    console.log("health checker");
+    res.status(200).json({ status: "OK", message: "Server is healthy" });
+});
+
 //It will run the server after connect to database
 connectDB().then(() => {
     app.listen(PORT, '0.0.0.0', () => {

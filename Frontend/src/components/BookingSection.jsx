@@ -6,7 +6,13 @@ import { Link } from "react-router-dom"
 const BookingSection = () => {
     return (
         <section id="section-preview" className="section-padding bg-footerBg border-t border-gray-800">
-            <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className="max-w-4xl mx-auto text-center"
+            >
                 <p className="text-brandRed text-sm font-serif font-semibold tracking-[0.3em] uppercase">Reserve Your Slot</p>
                 <h2 className="font-serif text-4xl mf:text-5xl font-bold text-white mb-2">
                     Book Your Session
@@ -17,13 +23,8 @@ const BookingSection = () => {
                     Ready to create something beautiful? Book a session with our team
                     and we'll bring your vision to life — anywhere in Ethiopia.
                 </p>
-                
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    viewport={{ once: true }}
-                    className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
                     {[
                         { label: 'Same-day confirmation', icon: Check },
                         { label: 'Flexible locations', icon: MapPinIcon },
@@ -39,19 +40,12 @@ const BookingSection = () => {
                             </div>
                         );
                     })}
-                </motion.div>
+                </div>
 
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    viewport={{ once: true }}
-                >
-                    <Link to="/bookings" className="inline-block px-10 py-4 bg-brandRed text-white font-semibold rounded hover:bg-brandRedHover transition-all duration-300 hover:scale-105 text-lg " >
-                        Book Now
-                    </Link>
-                </motion.div>
-            </div>
+                <Link to="/bookings" className="inline-block px-10 py-4 bg-brandRed text-white font-semibold rounded hover:bg-brandRedHover transition-all duration-300 hover:scale-105 text-lg">
+                    Book Now
+                </Link>
+            </motion.div>
         </section>
     )
 }
