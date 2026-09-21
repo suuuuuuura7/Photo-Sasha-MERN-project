@@ -1,0 +1,37 @@
+const Logo = ({ size = 40, className = '' }) => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 30 30"
+            width={size}
+            height={size}
+            className={className}
+        >
+
+            <g fill="#8B0000">
+                <rect x="0" y="0" width="17" height="5" />
+                <rect x="19" y="0" width="5" height="5" />
+                <rect x="25" y="0" width="5" height="5" />
+
+                <rect x="0" y="5" width="24" height="6" />
+                <rect x="25" y="5" width="5" height="6" />
+
+                <rect x="19" y="11" width="5" height="13" />
+                <rect x="25" y="11" width="5" height="13" />
+
+                <rect x="6" y="11" width="5" height="8" />
+                <rect x="0" y="13" width="6" height="6" />
+
+                <rect x="0" y="19" width="24" height="5" />
+                <rect x="25" y="19" width="5" height="5" />
+
+                <rect x="0" y="24" width="5" height="6" />
+                <rect x="6" y="24" width="5" height="6" />
+
+                <rect x="11" y="25" width="19" height="5" />
+            </g>
+        </svg>
+    )
+}
+
+export default Logo

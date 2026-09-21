@@ -1,5 +1,5 @@
 import api from "../api/axios.js";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useCallback, useState, useEffect } from "react";
 
 const AuthContext = createContext(null);
 
@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const refreshsession = useEffect(async () => {
+    const refreshsession = useCallback(async () => {
         try {
             const { data } = await api.get('/auth/me');
             setUser(data.user);
@@ -22,8 +22,8 @@ export const AuthProvider = ({ children }) => {
         refreshsession();
     }, [refreshsession]);
 
-    const register = async (name, email, password) => {
-        const { data } = await api.post('/auth/register', { name, email, password });
+    const register = async (name, email, phone, password) => {
+        const { data } = await api.post('/auth/register', { name, email, phone, password });
         setUser(data.user);
         return data.user;
     };
@@ -39,8 +39,10 @@ export const AuthProvider = ({ children }) => {
         setUser(null);
     };
 
-    const loginWithGoogle = () => {
-        window.location.href = 'http://localhost:5002/api/auth/googleAuth';
+    const loginWithGoogle = async (credentialResponse) => {
+        const { data } = await api.post('/auth/google', { code: credentialResponse.credential })
+        setUser(data.user);
+        return data.user;
     };
 
     const value = {

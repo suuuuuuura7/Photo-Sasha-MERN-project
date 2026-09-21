@@ -3,7 +3,7 @@ import User from "../models/User.js";
 
 export const createBooking = async (req, res) => {
     try {
-        const { serviceType, data, time, location, duration, message } = req.body;
+        const { serviceType, date, time, location, duration, message } = req.body;
 
         const booking = await Booking.create({
             user: req.user._id,
@@ -28,7 +28,7 @@ export const createBooking = async (req, res) => {
 
 export const getUserBooking = async (req, res) => {
     try {
-        const allbooking = await Booking.find({ user: req.user._id }).populate('photographer', 'name photo').sort({ createdAt: -1 });
+        const allbooking = await Booking.find({ user: req.user._id }).sort({ createdAt: -1 });
         res.json(allbooking);
     } catch (error) {
         console.error("error to getall booking.", error);
@@ -38,7 +38,7 @@ export const getUserBooking = async (req, res) => {
 
 export const getUserBookingById = async (req, res) => {
     try {
-        const bookingById = await Booking.findById(req.parms.id).populate('user', 'name email').populate('photographer', 'name photo');
+        const bookingById = await Booking.findById(req.params.id).populate('user', 'name email');
 
         if (!bookingById) return res.status(404).json({ message: 'Booking not found.' });
 
@@ -76,8 +76,8 @@ export const getAllBookings = async (req, res) => {
     try {
         const bookings = await Booking.find()
             .populate('user', 'name email')
-            .populate('photographer', 'name')
             .sort({ createdAt: -1 });
+
 
         res.json(bookings);
     } catch (error) {

@@ -8,9 +8,9 @@ router.post('/', isAuth, submitReview);
 router.get('/', getApprovedPreview);
 
 //admin only
-router.put('/:id/approve', isAdmin, approvePreview);
-router.get('/all', isAdmin, getAllRreview);
-router.delete('/:id', isAdmin, deleteReview);
+router.put('/:id/approve', isAuth, isAdmin, approvePreview);
+router.get('/all', isAuth, isAdmin, getAllRreview);
+router.delete('/:id', isAuth, isAdmin, deleteReview);
 
 
 

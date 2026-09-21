@@ -1,13 +1,37 @@
 import Review from "../models/Review.js";
+import Booking from "../models/Booking.js";
 
 export const submitReview = async (req, res) => {
     try {
-        const { ratting, comment, bookingId } = req.body;
+        const { rating, comment, bookingId } = req.body;
+        const { status } = req.query;
 
-        const review = await Review.create({
-            user: req.user_.id,
-            booking: bookingId,
-            ratting,
+        // Verify if the user has any booking first
+        let booking;
+        if (bookingId) {
+            booking = await Booking.findOne({ _id: bookingId, user: req.user._id });
+        } else {
+            booking = await Booking.findOne({ user: req.user._id }).sort({ createdAt: -1 });
+        }
+
+        if (!booking) {
+            return res.status(403).json({ message: "You must book a session first before leaving a review." });
+        }
+
+        // if (!(status === 'completed')) {
+        //     return res.status(403).json({ message: "Your session must be completed to leaving a review." })
+        // }
+
+        // Prevent duplicate reviews for the same booking
+        const existingReview = await Review.findOne({ user: req.user._id, booking: booking._id });
+        if (existingReview) {
+            return res.status(400).json({ message: "You have already reviewed this session." });
+        }
+
+        await Review.create({
+            user: req.user._id,
+            booking: booking._id,
+            rating,
             comment,
         });
 
@@ -17,7 +41,7 @@ export const submitReview = async (req, res) => {
         res.status(500).json({ message: "Something Went wrong to submit review: " }, error.message);
     }
 };
-
+//admin only
 export const approvePreview = async (req, res) => {
     try {
         const review = await Review.findByIdAndUpdate(
@@ -44,7 +68,7 @@ export const getApprovedPreview = async (req, res) => {
         res.status(500).json({ message: "Something Went wrong to get approve reviews: " }, error.message);
     }
 };
-
+// admin only
 export const getAllRreview = async (req, res) => {
     try {
         const review = await Review.find().populate('user', 'name avatar').sort({ createdAt: -1 });
@@ -55,13 +79,13 @@ export const getAllRreview = async (req, res) => {
         res.status(500).json({ message: "Something Went wrong to get all reviews: " }, error.message);
     }
 };
-
+//admin only
 export const deleteReview = async (req, res) => {
     try {
-        const review = await Review.findByIdAndDelete(req.parms.id);
+        const review = await Review.findByIdAndDelete(req.params.id);
 
-        if(!review) return res.status(404).json({message: "Review not found"});
-        res.status(201).json({message: "deleted Review"});
+        if (!review) return res.status(404).json({ message: "Review not found" });
+        res.status(201).json({ message: "deleted Review" });
     } catch (error) {
         console.error("Error to delete reviews: ", error)
         res.status(500).json({ message: "Something Went wrong to delete review: " }, error.message);

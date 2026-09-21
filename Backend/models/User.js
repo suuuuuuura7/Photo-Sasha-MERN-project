@@ -16,6 +16,10 @@ const Userschema = new mongoose.Schema(
             trim: true,
             match: [/^\S+@\S+\.\S+$/, "please enter a valid email"],
         },
+        phone: {
+            type: String,
+            trim: true,
+        },
         password: {
             type: String,
             minlength: [8, "password must be at least 8 charachters long"],
@@ -24,7 +28,6 @@ const Userschema = new mongoose.Schema(
             type: String,
             sparse: true,
             unique: true,
-            default: null,
         },
         avatar: {
             type: String,
@@ -34,10 +37,6 @@ const Userschema = new mongoose.Schema(
             type: String,
             enum: ['user', 'admin'],
             default: 'user',
-        },
-        phone: {
-            type: String,
-            trim: true,
         },
         isVerified: {
             type: Boolean,

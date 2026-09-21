@@ -15,14 +15,16 @@ const gallerySchema = new mongoose.Schema(
             type: String,
             required: [true, 'image URL is required'],
         },
+        publicId: {
+            type: String,
+        },
+        width: Number,
+        height: Number,
+        bytes: Number,
         category: {
             type: String,
             enum: ['Wedding', 'Portrait', 'Corporate', 'Event', 'Fashion', 'Other'],
             default: 'Other',
-        },
-        photographer: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Photographer',
         },
         isFeatured: {
             type: Boolean,

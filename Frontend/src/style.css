@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #0A0A0A;
+}
+
+/* Custom scrollbar with red color  */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0A0A0A;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #8B0000;
+    border-radius: 3px;
+}
+
+/* when the user select text or content it gives red background with white content */
+::selection {
+    background: #8B0000;
+    color: white;
+}
+
+/* Section padding */
+.section-padding {
+    @apply py-16 px-4 md:px-8 lg:px-16;
+}
+
+/* Hide default password eye icon in Edge/IE */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}

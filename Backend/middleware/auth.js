@@ -3,8 +3,9 @@ import User from "../models/User.js";
 
 export const isAuth = async (req, res, next) => {
   try {
-    
-    const token = req.cookie?.jwt;
+
+    // Check for accessToken or fallback to jwt cookie (for backward compatibility)
+    const token = req.cookies?.accessToken || req.cookies?.jwt;
 
     if (!token) return res.status(401).json({ Message: "Not authorized, no session found. " });
 

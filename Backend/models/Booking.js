@@ -7,18 +7,14 @@ const bookingSchema = new mongoose.Schema(
             ref: 'User',
             required: true,
         },
-        photographer: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Photograher'
-        },
         serviceType: {
             type: String,
             required: [true, 'service type is required'],
-            enum: ['Portait', 'wedding', 'Corporate', 'Event', 'Fashion', 'Commercial', 'family', 'Other'],
+            enum: ['Portrait', 'Wedding', 'Corporate', 'Event', 'Fashion', 'Commercial', 'family', 'Other'],
         },
         date: {
             type: Date,
-            required: [true, "nokking date is required"],
+            required: [true, " date is required"],
         },
         time: {
             type: String,
@@ -31,7 +27,7 @@ const bookingSchema = new mongoose.Schema(
         },
         duration: {
             type: Number,
-            required: [true.valueOf, "time is required"],
+            required: [true, "time is required"],
             min: 1,
             max: 12,
         },
@@ -46,7 +42,7 @@ const bookingSchema = new mongoose.Schema(
         },
         totalprice: {
             type: Number,
-            default: o,
+            default: 0,
         },
         adminNotes: {
             type: String,
@@ -54,6 +50,9 @@ const bookingSchema = new mongoose.Schema(
     },
     { timestamps: true }
 );
+
+bookingSchema.index({ user: 1, status: 1 });
+bookingSchema.index({ date: 1 });
 
 const Booking = mongoose.model("Booking", bookingSchema);
 export default Booking;

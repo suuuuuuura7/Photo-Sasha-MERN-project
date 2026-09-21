@@ -25,9 +25,9 @@ export default {
         brandRedHover: '#8a0a0a',
       },
       fontFamily: {
-        // Modern sans-serif for body text, elegant serif for headings
-        sans: ['Inter', 'Roboto', 'sans-serif'],
-        serif: ['Playfair Display', 'Merriweather', 'serif'],
+        // Swapped as per user request: Nippo for titles (serif), Playfair for description (sans)
+        sans: ['Playfair Display', 'Merriweather', 'serif'],
+        serif: ['Nippo', 'sans-serif'],
       },
     },
   },
