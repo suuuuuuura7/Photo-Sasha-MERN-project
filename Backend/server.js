@@ -17,10 +17,26 @@ const app = express();
 const PORT = process.env.PORT || 5002;
 
 // To connect backend to frontend
+const allowedOrigins = [
+    'http://localhost:5173',
+    process.env.CLIENT_URL, // https://photosasha.vercel.app
+].filter(Boolean);
+
 app.use(
     cors({
-        origin: process.env.CLIENT_URL,
+        origin: (origin, callback) => {
+            // Allow requests with no origin (like Postman, mobile apps, or server-to-server calls)
+            if (!origin) return callback(null, true);
+
+            if (allowedOrigins.includes(origin)) {
+                return callback(null, true);
+            } else {
+                return callback(null, new Error('Not allowed by CORS'));
+            }
+        },
         credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     })
 );
 
