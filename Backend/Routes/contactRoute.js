@@ -1,7 +1,7 @@
 import express from "express";
 import { submitMessage, getAllMessage, getMessageById, deleteMessage } from "../controllers/contactcontroller.js";
 const router = express.Router();
-import { isAuth, isAdmin } from "../middleware/Auth.js";
+import { isAuth, isAdmin } from "../middleware/auth.js";
 router.post('/', submitMessage);//user can sumbit message publicly
 
 //admin can do this

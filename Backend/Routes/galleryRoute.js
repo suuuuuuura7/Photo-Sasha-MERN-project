@@ -1,6 +1,6 @@
 import express from 'express';
 import { getAllImages, getImagesById, uploadImage, updateImage, deleteImage, getfeaturedImages } from '../controllers/galleryController.js';
-import { isAuth, isAdmin } from '../middleware/Auth.js';
+import { isAuth, isAdmin } from '../middleware/auth.js';
 import { upload } from '../middleware/upload.js';
 const router = express.Router();
 
