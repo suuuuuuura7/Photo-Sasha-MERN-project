@@ -1,7 +1,4 @@
 import Gallery from "../models/Gallery.js";
-import multer from "multer";
-import path from "path";
-import fs from "fs";
 import { processAndUpload } from "../utils/processAndUpload.js";
 import cloudinary from "../config/cloudinary.js";
 
