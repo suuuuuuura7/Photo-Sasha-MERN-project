@@ -52,6 +52,11 @@ app.use("/api/contact", contactRoute);
 app.use("/api/reviews", reviewRoute);
 app.use("/api/admin", adminRoute);
 
+// Health check route
+app.get('/api/health', (req, res) => {
+    console.log("health checker");
+    res.status(200).json({ status: "OK", message: "Server is healthy" });
+});
 
 // Centralized error handler
 app.use((err, req, res, next) => {
@@ -59,11 +64,6 @@ app.use((err, req, res, next) => {
     res.status(500).json({ message: 'Internal server error' });
 });
 
-// Health check route
-app.get('/api/health', (req, res) => {
-    console.log("health checker");
-    res.status(200).json({ status: "OK", message: "Server is healthy" });
-});
 
 //It will run the server after connect to database
 connectDB().then(() => {
