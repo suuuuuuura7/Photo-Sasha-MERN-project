@@ -3,8 +3,6 @@ dns.setDefaultResultOrder('ipv4first');
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 import compression from 'compression';
-app.use(compression());
-
 import express from 'express';
 import 'dotenv/config';
 import cors from "cors";
@@ -20,6 +18,7 @@ import adminRoute from './Routes/adminRoute.js';
 const app = express();
 const PORT = process.env.PORT || 5002;
 app.set("trust proxy", 1);
+app.use(compression());
 
 // To connect backend to frontend
 const allowedOrigins = [
