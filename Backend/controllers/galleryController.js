@@ -60,7 +60,7 @@ export const uploadImage = async (req, res) => {
         res.status(201).json({ message: "Successfully created an image", image });
     } catch (error) {
         console.error("Error to upload image: ", error);
-        res.status(500).json({ message: "Something went wrong to upload image" });
+        res.status(500).json({ message: "Something went wrong to upload image", error: error.message });
     }
 };
 
