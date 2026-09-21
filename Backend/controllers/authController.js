@@ -11,23 +11,25 @@ const googleClient = new OAuth2Client(
     process.env.GOOGLE_CLIENT_SECRET,
     process.env.GOOGLE_REDIRECT_URI
 );
-
-// httpOnly cookie session
+// Helper for sending token cookie
 const sendTokenCookie = (res, userId) => {
-    const expiresDays = Number(process.env.JWT_EXPIRES_DAYS);
+    const expiresDays = Number(process.env.JWT_EXPIRES_DAYS) || 7;
 
     const token = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
         expiresIn: `${expiresDays}d`
     });
 
+    const isProduction = process.env.NODE_ENV === "production";
+
     res.cookie("jwt", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        secure: isProduction, // MUST be true in production for sameSite: "none"
+        sameSite: isProduction ? "none" : "lax", // MUST be "none" for cross-domain (Vercel -> Render)
         maxAge: expiresDays * 24 * 60 * 60 * 1000,
         path: "/",
     });
 };
+
 
 export const register = async (req, res) => {
     try {
@@ -177,10 +179,13 @@ export const googleAuth = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
+
+    const isProduction = process.env.NODE_ENV === "production";
+
     res.cookie("jwt", "", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        secure: isProduction,
+        sameSite: isProduction ? "none" : "lax",
         expires: new Date(0),
         path: "/",
     });
