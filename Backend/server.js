@@ -2,6 +2,9 @@ import dns from 'node:dns';
 dns.setDefaultResultOrder('ipv4first');
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
+import compression from 'compression';
+app.use(compression());
+
 import express from 'express';
 import 'dotenv/config';
 import cors from "cors";

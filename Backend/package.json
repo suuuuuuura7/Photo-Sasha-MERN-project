@@ -11,8 +11,10 @@
     "start": "node --dns-result-order=ipv4first server.js"
   },
   "dependencies": {
+    "apicache": "^1.6.3",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.11.0",
+    "compression": "^1.8.2",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",

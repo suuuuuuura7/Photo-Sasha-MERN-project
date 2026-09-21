@@ -2,10 +2,12 @@ import express from 'express';
 import { getAllImages, getImagesById, uploadImage, updateImage, deleteImage, getfeaturedImages } from '../controllers/galleryController.js';
 import { isAuth, isAdmin } from '../middleware/auth.js';
 import { upload } from '../middleware/upload.js';
+import apicache from 'apicache';
+const cache = apicache.middleware;
 const router = express.Router();
 
 // Public — /featured MUST come before /:id to avoid Express matching "featured" as an id
-router.get('/featured', getfeaturedImages);
+router.get('/featured', cache('5 minutes'), getfeaturedImages);
 
 // Auth-protected user routes
 router.get('/', isAuth, getAllImages);

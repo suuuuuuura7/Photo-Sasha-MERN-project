@@ -1,30 +1,55 @@
-import React from 'react'
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter, createRoutesFromElements, Route, Outlet, ScrollRestoration } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import Home from './pages/Home';
-import Register from './pages/Register';
-import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import AdminLayout from './components/AdminLayout';
-import Booking from './pages/Booking';
-import Dashboard from './pages/Dashboard';
-import Gallery from './pages/Gallery';
-import LeaveReview from './pages/LeaveReview';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import ManageBooking from './pages/admin/ManageBooking';
-import ManageGallery from './pages/admin/ManageGallery';
-import ManageReviews from './pages/admin/ManageReviews';
-import ManageUsers from './pages/admin/ManageUsers';
 
-const RootLayout = () => {
-  return (
-    <AuthProvider>
-      <ScrollRestoration />
+// — Lazy-loaded pages —
+const Home = lazy(() => import('./pages/Home'));
+const Register = lazy(() => import('./pages/Register'));
+const Login = lazy(() => import('./pages/Login'));
+const Booking = lazy(() => import('./pages/Booking'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Gallery = lazy(() => import('./pages/Gallery'));
+const LeaveReview = lazy(() => import('./pages/LeaveReview'));
+
+// — Admin pages —
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const ManageBooking = lazy(() => import('./pages/admin/ManageBooking'));
+const ManageGallery = lazy(() => import('./pages/admin/ManageGallery'));
+const ManageReviews = lazy(() => import('./pages/admin/ManageReviews'));
+const ManageUsers = lazy(() => import('./pages/admin/ManageUsers'));
+
+// — Page loader spinner —
+const PageLoader = () => (
+  <div style={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '100vh',
+    background: '#0a0a0a',
+  }}>
+    <div style={{
+      width: 44,
+      height: 44,
+      borderRadius: '50%',
+      border: '3px solid #e53e3e',
+      borderTopColor: 'transparent',
+      animation: 'spin 0.75s linear infinite',
+    }} />
+    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+  </div>
+);
+
+const RootLayout = () => (
+  <AuthProvider>
+    <ScrollRestoration />
+    <Suspense fallback={<PageLoader />}>
       <Outlet />
-    </AuthProvider>
-  )
-}
+    </Suspense>
+  </AuthProvider>
+);
 
 const router = createBrowserRouter(
   createRoutesFromElements(

@@ -1,6 +1,7 @@
 import express from 'express';
 import { register, login, logout, getMe, googleAuth } from "../controllers/authController.js";
 import { isAuth } from '../middleware/auth.js';
+
 const router = express.Router();
 
 router.post('/register', register);

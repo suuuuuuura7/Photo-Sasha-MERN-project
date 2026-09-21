@@ -21,7 +21,7 @@ export default {
         footerText: '#a1a1aa',  // Zinc-400
 
         // Brand color (deep red matching the logo UI)
-        brandRed: '`#b00b0b`',
+        brandRed: '#b00b0b',
         brandRedHover: '#8a0a0a',
       },
       fontFamily: {
